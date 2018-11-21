@@ -15,26 +15,33 @@ public class mergeSort {
 
     public static void merge(int[] arr, int left, int mid, int right, int[] temp) {
         int leftIdx = left;
-        int rightIdx = mid;
-        for(int i=left;i<right;i++){
-            if(leftIdx==mid){
-                temp[i] = arr[rightIdx];
-                rightIdx++;
-            } else if (rightIdx==right){
-                temp[i] = arr[leftIdx];
+        int rightIdx = mid+1;
+        int tempIdx = left;
+
+        while(leftIdx<=mid&&rightIdx<=right){
+            if(arr[leftIdx]<=arr[rightIdx]){
+                temp[tempIdx] = arr[leftIdx];
                 leftIdx++;
             } else {
-                if (arr[leftIdx] < arr[rightIdx]) {
-                    temp[i] = arr[leftIdx];
-                    leftIdx++;
-                } else {
-                    temp[i] = arr[rightIdx];
-                    rightIdx++;
-                }
+                temp[tempIdx] = arr[rightIdx];
+                rightIdx++;
             }
+            tempIdx++;
         }
 
-        for(int i=left;i<right;i++){
+        while(leftIdx<=mid){
+            temp[tempIdx] = arr[leftIdx];
+            leftIdx++;
+            tempIdx++;
+        }
+
+        while(rightIdx<=right){
+            temp[tempIdx] = arr[rightIdx];
+            rightIdx++;
+            tempIdx++;
+        }
+
+        for(int i=left;i<=right;i++){
             arr[i] = temp[i];
         }
     }
